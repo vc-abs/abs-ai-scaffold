@@ -1,0 +1,25 @@
+{
+	"name": "Designer Agent",
+	"version": "1.0.0",
+	"description": "Configuration for the designer AI agent.",
+	"author": "vc-abs",
+	"license": "MIT",
+	"settings": {
+		"theme": "light",
+		"gridSize": 12,
+		"snapToGrid": true,
+		"defaultFont": "Arial",
+		"colorPalette": [
+			"#FFFFFF",
+			"#000000",
+			"#FF5733",
+			"#33FF57",
+			"#3357FF"
+		]
+	},
+	"paths": {
+		"assets": "./assets",
+		"output": "./dist",
+		"templates": "./templates"
+	}
+}

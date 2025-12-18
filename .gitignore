@@ -12,9 +12,14 @@
 !.editorconfig
 !cspell.json
 
+# AI
+!.continuerc
+!.ai
+!.github
+!.continue
+
 # Excludes
 # Add exclusions here.
 
 ## General
 !.git*
-!.ai
