@@ -1,0 +1,26 @@
+rules:
+  - name: "Use Emojis in Responses"
+    description: "Encourage the use of emojis to make responses more engaging and expressive."
+    applies_to:
+      - responses
+    actions:
+      - suggestion: "Consider adding relevant emojis to make the response lively."
+      - enforcement: "Ensure at least one emoji is included in user-facing responses."
+
+  - name: "Adhere to EditorConfig"
+    description: "Ensure generated code/content adheres to .editorconfig settings for consistency."
+    applies_to:
+      - code_generation
+      - content_creation
+    actions:
+      - suggestion: "Check .editorconfig for style and formatting guidelines during generation."
+      - enforcement: "Automatically adjust generated content according to .editorconfig settings."
+
+defaults:
+  - name: "General Best Practices"
+    description: "Follow general best practices for code quality and user engagement."
+    applies_to:
+      - all
+    actions:
+      - suggestion: "Maintain clarity, conciseness, and relevance in all outputs."
+      - enforcement: "Review outputs to ensure they meet established quality standards."
