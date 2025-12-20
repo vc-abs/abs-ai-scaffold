@@ -41,9 +41,17 @@ Format: `<type>(<scope>): <subject>`
 - Be specific and descriptive
 
 ### 5. Execute the Commit
-Generate the commit message and execute it automatically:
+Generate the commit and execute it using terminal commands:
+
 ```bash
+git add .
 git commit -m "<type>(<scope>): <subject>"
+```
+
+Example:
+```bash
+git add .
+git commit -m "feat(auth): add JWT token refresh mechanism"
 ```
 
 The changes are now committed to the repository.
