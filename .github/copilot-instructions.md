@@ -1,5 +1,12 @@
 # GitHub Copilot Instructions
 
+## Tools and Execution Guidelines
+
+See `.github/agents/copilot-helper.md` for authoritative tool preferences and auto-execution policy. Key principles:
+- **Preferred shell:** `bash` for automation
+- **Git operations:** Use terminal commands; avoid GUI tools for automated workflows
+- **Auto-execution policy:** Do not auto-commit without explicit user request (e.g., `/commit` invocation)
+
 ## File Naming Conventions
 - Use **kebab-case** for files (e.g., `read-me.md`, `user-service.js`)
 - Use **SCREAMING_SNAKE_CASE** for constants (e.g., `MAX_RETRIES`, `API_TIMEOUT`)

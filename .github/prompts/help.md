@@ -1,8 +1,15 @@
 # Help
 
+**Tool Policy:** See `.github/agents/copilot-helper.md` for authoritative guidelines.
+
 ## Custom Prompts
 
 - **`/commit`** - Generate and execute atomic commits with conventional commit messages
+
+## Tools and Execution Guidelines
+- **Preferred shell for automation:** `bash`.
+- **For Git operations:** Use terminal `git` commands (`git status`, `git add .`, `git commit -m "<message>"`).
+- **Avoid GUI Git tools** for automated workflows.
 
 ## Getting Started
 
