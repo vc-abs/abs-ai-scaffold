@@ -41,10 +41,12 @@ Format: `<type>(<scope>): <subject>`
 - Be specific and descriptive
 
 ### 5. Execute the Commit
-Once the message is approved:
+Generate the commit message and execute it automatically:
 ```bash
 git commit -m "<type>(<scope>): <subject>"
 ```
+
+The changes are now committed to the repository.
 
 ## Example Workflow
 
