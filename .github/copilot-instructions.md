@@ -31,3 +31,6 @@ Repository-level guidance for Copilot workflows, file naming, and conventions. F
 
 ## Language-Specific Rules
 - **Shell Scripts:** Use meaningful variable names; add header comments with purpose
+
+## Tool Policy & Context Injection
+When invoking any prompt in `.github/prompts/`, inject the contents of `.github/config/tool-policy.yaml` into the context to ensure all runtime guardrails are available to the prompt.
