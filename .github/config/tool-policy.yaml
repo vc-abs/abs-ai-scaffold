@@ -27,3 +27,23 @@ avoid:
   - Interactive UI dialogs that block automation
 
 rationale: "Terminal commands ensure consistent behavior across machines and avoid interactive UI dialogs that block automation."
+
+# Compact machine-readable guardrails. Keep prose/details in the companion file
+# referenced by `policy_details_path` below to avoid embedding long descriptions
+# in runtime prompts.
+guardrails:
+  version: v1
+  policy_details_path: .github/config/tool-policy-details.md
+  push: { enf: disallow }
+  api_access: { enf: disallow }
+  arbitrary_commands:
+    { enf: restrict, allowlist: [git_status, git_diff, git_log] }
+  operations_beyond_branch: { enf: scope_branch }
+  local_git_operations:
+    {
+      enf: allow,
+      automated: true,
+      allowlist: [git_status, git_diff, git_log, git_add, git_commit],
+    }
+  report_summary: { enf: require }
+  warnings_and_decisions: { enf: escalate }
