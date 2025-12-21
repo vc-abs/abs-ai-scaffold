@@ -1,23 +1,12 @@
 # GitHub Copilot Instructions
 
-## Tools and Execution Guidelines
+## Overview
 
-See `.github/agents/copilot-helper.md` for authoritative tool preferences and auto-execution policy. Key principles:
-- **Preferred shell:** `bash` for automation
-- **Git operations:** Use terminal commands; avoid GUI tools for automated workflows
-- **Auto-execution policy:** Do not auto-commit without explicit user request (e.g., `/commit` invocation)
+Repository-level guidance for Copilot workflows, file naming, and conventions. For authoritative tool policies and execution guidelines, see `.github/agents/copilot-helper.md`. Users can invoke `/help` to discover available prompts.
 
 ## File Naming Conventions
 - Use **kebab-case** for files (e.g., `read-me.md`, `user-service.js`)
 - Use **SCREAMING_SNAKE_CASE** for constants (e.g., `MAX_RETRIES`, `API_TIMEOUT`)
-
-## Committing Changes
-Use the custom prompt `/commit` when committing changes. This prompt ensures:
-- Changes are **atomic** and logically related (no mixing unrelated concerns)
-- Generates appropriate commit type and message
-- Changes are validated before committing to promote clean, focused commits
-
-For detailed commit conventions and workflow, refer to the `/commit` prompt.
 
 ## Code Style
 - Follow `.editorconfig` settings for formatting
