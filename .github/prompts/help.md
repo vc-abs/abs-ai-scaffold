@@ -1,6 +1,6 @@
 # Help
 
-**Tool Policy:** See `.github/agents/copilot-helper.md` for authoritative guidelines.
+**Tool Policy:** See `.github/config/tool-policy.yaml` for authoritative tool preferences and execution constraints.
 
 ## Custom Prompts
 

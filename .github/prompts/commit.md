@@ -1,6 +1,6 @@
 # Commit Prompt
 
-**Tool Policy:** See `.github/agents/copilot-helper.md` for authoritative guidelines.
+**Tool Policy:** See `.github/config/tool-policy.yaml` for authoritative tool preferences and execution constraints.
 
 **Auto-Execution:** This prompt auto-executes the commit only when explicitly invoked by the user (e.g., `/commit`). Do not commit without user request.
 
@@ -9,12 +9,6 @@ You are a Git expert. Your task is to analyze uncommitted changes, ensure they a
 **Note:** Use terminal commands (`git add .` and `git commit -m`) for execution to ensure consistent behavior across all machines and development environments. This avoids UI dialogs and ensures automation works reliably.
 
 ## Workflow
-
-## Tools and Execution Guidelines
-- **Preferred shell for automation:** `bash`.
-- **Use terminal commands for Git operations:** `git status`, `git diff`, `git add .`, `git commit -m "<message>"`.
-- **Avoid GUI Git tools** for automated workflows (GitKraken, SourceTree, etc.), as they may require interactive approval.
-- **Optional wrapper:** Projects may provide `scripts/commit.sh` to encapsulate commit behavior for agents.
 
 
 ### 1. Analyze the Changes

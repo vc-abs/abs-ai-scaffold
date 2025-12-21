@@ -1,66 +1,66 @@
 # Copilot Helper Agent
 
-**Tool Policy:**
-```yaml
-tools:
-  prefer: bash
-  git: terminal
-  auto_execute: disallowed
-  dry_run_required: false
+Purpose: guide the creation of new agents and prompts with consistent structure, tool choices, and runtime policy references.
+
+## Creating a New Agent or Prompt
+
+### 1. Add Tool Policy Reference
+
+All new agents and prompts must reference the shared tool policy. Add this line near the top:
+
+```markdown
+**Tool Policy:** See `.github/config/tool-policy.yaml` for authoritative tool preferences and execution constraints.
 ```
 
-Purpose: provide a single authoritative reference for tools, execution guidelines, and best practices for any AI agents or custom prompts in this repository.
+This ensures agents/prompts automatically pull the latest tool policy at runtime without embedding it.
 
-## Tools and Execution Guidelines
+### 2. Implement Core Behavior
 
-- **Preferred shell for automation:** `bash` (use terminal for scripted operations)
-- **Git operations:** Use terminal `git` commands (`git status`, `git diff`, `git add .`, `git commit -m "<message>"`) for automation; avoid GUI tools (GitKraken, SourceTree) for automated workflows.
-- **File and CI operations:** Use shell scripts and terminal tools (grep, diff, sed, awk) when automating.
-- **Wrapper scripts:** Projects may provide `scripts/commit.sh` to encapsulate commit behavior for agents; prefer calling wrappers from prompts when available.
-- **Why:** Terminal commands ensure consistent behavior across machines and avoid interactive UI dialogs that block automation.
+- Define the agent/prompt's purpose clearly
+- Document inputs, outputs, and key workflow steps
+- Reference tool policy for any automation (git, file operations, etc.)
+- **Do not embed tool policy details** — users/agents will read the referenced file
 
-## Auto-Execution Policy
+### 3. Safety and Constraints
 
-- **No auto-commits by default:** Do not commit changes unless the user explicitly requests it (e.g., via `/commit` prompt invocation or explicit `/do commit` instruction).
-- **Explicit invocation required:** Auto-execution is allowed only when a user invokes a prompt or agent that is designed to auto-execute (e.g., `/commit` prompt when user types `/commit`).
-- **Safe operations:** Analysis, dry-run, and informational operations may be auto-executed without explicit confirmation.
+All agents/prompts must respect `.github/config/tool-policy.yaml`, especially:
+- **No auto-commit:** Only commit when user explicitly invokes the commit prompt
+- **No auto-push:** Only push when explicitly requested
+- **Use terminal commands:** Prefer bash/shell over GUI tools for automation
 
-## Agent Responsibilities
+### 4. Example Structure
 
-- Serve as the canonical source for tool choices and execution patterns across prompts and agents in this repository.
-- Help authors create prompts that explicitly prefer terminal commands when automation is intended.
-- Provide example terminal commands for common operations (git status, add, commit) and note why they are preferred.
+```markdown
+# My New Prompt
 
-## Usage
+**Tool Policy:** See `.github/config/tool-policy.yaml` for authoritative tool preferences and execution constraints.
 
-- Reference this agent from prompt-level or repository-level documentation (e.g., `.github/copilot-instructions.md`, `.github/prompts/*`).
-- When a prompt needs to instruct an AI or agent how to act at session start, include a short pointer to this agent and, if necessary, paste the minimal commands required for that operation.
+## Purpose
+[Clear description of what the prompt does]
 
-# Copilot Helper Agent
+## Workflow
+1. [Step 1]
+2. [Step 2]
+3. [Reference tool policy as needed for tool-specific guidance]
 
-Purpose: provide a single authoritative reference for tools, execution guidelines, and best practices for any AI agents or custom prompts in this repository.
+## Safety
+- Respects no-auto-commit constraint (see tool policy)
+- Uses terminal commands for git operations
+```
 
-## Tools and Execution Guidelines
+## Extending the Tool Policy
 
-- **Preferred shell for automation:** `bash` (use terminal for scripted operations)
-- **Git operations:** Use terminal `git` commands (`git status`, `git diff`, `git add .`, `git commit -m "<message>"`) for automation; avoid GUI tools (GitKraken, SourceTree) for automated workflows.
-- **File and CI operations:** Use shell scripts and terminal tools (grep, diff, sed, awk) when automating.
-- **Wrapper scripts:** Projects may provide `scripts/commit.sh` to encapsulate commit behavior for agents; prefer calling wrappers from prompts when available.
-- **Why:** Terminal commands ensure consistent behavior across machines and avoid interactive UI dialogs that block automation.
+To add new tool configurations or constraints:
+1. Edit `.github/config/tool-policy.yaml` directly
+2. All referencing agents/prompts automatically respect the updated policy
+3. No need to update individual prompts unless behavior changes require it
 
-## Auto-Execution Policy
+## Available Prompts
 
-- **No auto-commits by default:** Do not commit changes unless the user explicitly requests it (e.g., via `/commit` prompt invocation or explicit `/do commit` instruction).
-- **Explicit invocation required:** Auto-execution is allowed only when a user invokes a prompt or agent that is designed to auto-execute (e.g., `/commit` prompt when user types `/commit`).
-- **Safe operations:** Analysis, dry-run, and informational operations may be auto-executed without explicit confirmation.
+Current prompts in `.github/prompts/`:
+- **`/commit`** — Analyze changes, verify atomicity, generate one-line commit message from diff
+- **`/help`** — Quick reference and prompt discovery
+- **`/streamline`** — Validate and directly edit files in-place
 
-## Agent Responsibilities
+See `.github/prompts/help.md` for user-facing prompt documentation.
 
-- Serve as the canonical source for tool choices and execution patterns across prompts and agents in this repository.
-- Help authors create prompts that explicitly prefer terminal commands when automation is intended.
-- Provide example terminal commands for common operations (git status, add, commit) and note why they are preferred.
-
-## Usage
-
-- Reference this agent from prompt-level or repository-level documentation (e.g., `.github/copilot-instructions.md`, `.github/prompts/*`).
-- When a prompt needs to instruct an AI or agent how to act at session start, include a short pointer to this agent and, if necessary, paste the minimal commands required for that operation.

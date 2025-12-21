@@ -1,0 +1,29 @@
+---
+# Tool Policy Configuration
+# Referenced at runtime by prompts and agents. Update here to affect all referencing prompts.
+
+tools:
+  preferred_shell: bash
+  git: terminal
+  file_operations: shell
+  ci_operations: shell
+
+auto_execution:
+  default: disallowed
+  exception: "Explicit user invocation (e.g., `/commit` prompt when user types `/commit`)"
+  rules:
+    - no_auto_commit: true
+    - no_auto_push: true
+    - safe_operations_allowed: "Analysis, dry-run, and informational operations may auto-execute"
+
+shell_commands:
+  git_status: "git status"
+  git_diff: "git diff"
+  git_add: "git add ."
+  git_commit: 'git commit -m "<message>"'
+
+avoid:
+  - GUI git tools (GitKraken, SourceTree) for automated workflows
+  - Interactive UI dialogs that block automation
+
+rationale: "Terminal commands ensure consistent behavior across machines and avoid interactive UI dialogs that block automation."
