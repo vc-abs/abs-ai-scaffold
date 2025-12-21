@@ -1,6 +1,6 @@
 # GitHub Copilot Instructions
 
-⛔ **CRITICAL:** Never auto-commit or auto-push changes. Only execute `git commit` when the user explicitly invokes `/commit`. Verify the user's explicit intent before running any git write operations. See `.github/config/tool-policy.yaml` for enforcement details.
+⛔ **CRITICAL:** Never auto-commit or auto-push changes. Only execute `git commit` when the user invokes the `/commit` prompt. See `.github/config/tool-policy.yaml` for enforcement details.
 
 ## Overview
 
