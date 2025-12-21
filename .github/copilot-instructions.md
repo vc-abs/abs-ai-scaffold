@@ -1,5 +1,7 @@
 # GitHub Copilot Instructions
 
+⛔ **Critical constraint:** Do not auto-commit or auto-push changes. Only commit when the user explicitly invokes `/commit`.
+
 ## Overview
 
 Repository-level guidance for Copilot workflows, file naming, and conventions. For authoritative tool policies and execution guidelines, see `.github/agents/copilot-helper.md`. Users can invoke `/help` to discover available prompts.
