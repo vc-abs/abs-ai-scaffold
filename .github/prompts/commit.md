@@ -53,13 +53,19 @@ Identify the appropriate type for your changes:
 
 ### 4. Generate the Commit Message
 Format: `<type>(<scope>): <subject>`
-- Keep subject under 50 characters
-- Use imperative mood ("add" not "adds")
-- No period at the end
-- Be specific and descriptive
+- REQUIRE a single-line subject (one-line commit message). Do not include a separate multi-line body unless the user explicitly requests it.
+- The subject MUST be derived strictly from the actual diff (use `git diff`/`git status` to determine changes). Do not reference files, edits, or states that are not present in the diff or working tree.
+- Prefer subject under 80 characters.
+- Use imperative mood ("add" not "adds").
+- No period at the end.
+- Be specific and descriptive about what the commit changes.
+
+Notes on scope and accuracy:
+- Determine the `<type>` and optional `<scope>` strictly from the changes seen in the diff. If you cannot confidently determine a single scope, omit the scope (use `<type>: <subject>`).
+- If the changes are not atomic, DO NOT generate a commit message; instead instruct how to split the changes into atomic sets.
 
 ### 5. Execute the Commit
-Generate the commit and execute it using terminal commands:
+Generate the commit and execute it using terminal commands. Use a single `-m` argument containing the one-line subject only.
 
 ```bash
 git add .
@@ -72,7 +78,7 @@ git add .
 git commit -m "feat(auth): add JWT token refresh mechanism"
 ```
 
-The changes are now committed to the repository.
+The changes are now committed to the repository (with a single-line subject). If a multi-line body is required, ask the user explicitly before including it.
 
 ## Example Workflow
 
