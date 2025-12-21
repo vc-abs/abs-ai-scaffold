@@ -7,7 +7,7 @@ policy_reference: .github/config/tool-policy.yaml
 ---
 ## Streamline Prompt
 
-Purpose: Make safe, minimal, in-place edits to one or more repository files (docs, code, scripts).
+Purpose: Validate and directly edit one or more repository files (design docs, code files, scripts, or image-generation pipelines). Discover and streamline providers and consumers to avoid outdated or duplicated content across related files. The prompt accepts file paths or — when no paths are provided — uses the current file in context as the target.
 
 Behavior and expectations:
 - Single-stage — analyze and apply edits directly to the working tree. Do not perform multi-step modes.
