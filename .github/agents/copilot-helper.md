@@ -60,7 +60,7 @@ To add new tool configurations or constraints:
 Current prompts in `.github/prompts/`:
 - **`/commit`** — Analyze changes, verify atomicity, generate one-line commit message from diff
 - **`/help`** — Quick reference and prompt discovery
-- **`/streamline`** — Validate and directly edit files in-place
+- **`/refine`** — Validate and directly edit files in-place
 
 See `.github/prompts/help.md` for user-facing prompt documentation.
 
