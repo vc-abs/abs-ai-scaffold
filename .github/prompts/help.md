@@ -4,21 +4,20 @@
 
 ## Custom Prompts
 
-- **`/commit`** - Generate and execute atomic commits with conventional commit messages
-
-## Tools and Execution Guidelines
-- **Preferred shell for automation:** `bash`.
-- **For Git operations:** Use terminal `git` commands (`git status`, `git add .`, `git commit -m "<message>"`).
-- **Avoid GUI Git tools** for automated workflows.
+- **`/commit`** — Analyze changes, verify atomicity, and generate a one-line commit message strictly from the diff. Executes only when explicitly invoked.
+- **`/help`** — Quick reference for available prompts and repository conventions (this prompt).
+- **`/streamline`** — Validate and directly edit files (design docs, code, scripts) by discovering relationships and applying minimal, focused edits in-place. Never commits or pushes changes.
 
 ## Getting Started
 
-1. Read `.github/copilot-instructions.md` for project conventions
-2. Use `/commit` when making changes
-3. Follow `.editorconfig` for formatting
+1. Read `.github/copilot-instructions.md` for project conventions and file naming
+2. Invoke `/commit` when you want to commit changes (analyze, verify atomicity, and execute)
+3. Invoke `/streamline` to validate and edit files in-place
+4. Follow `.editorconfig` for formatting
 
 ## Quick Links
 
 - **Conventions:** `.github/copilot-instructions.md`
-- **Commit Workflow:** Use `/commit` prompt
+- **Commit Workflow:** `/commit` prompt
+- **Streamline:** `/streamline` prompt
 - **Editor Config:** `.editorconfig`
