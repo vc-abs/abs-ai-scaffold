@@ -34,6 +34,11 @@ rationale: "Terminal commands ensure consistent behavior across machines and avo
 guardrails:
   version: v1
   policy_details_path: .github/config/tool-policy-details.md
+  commit_execution:
+    {
+      enf: require_explicit_invocation,
+      note: "Never auto-commit. Only execute git commit when user explicitly invokes /commit prompt.",
+    }
   push: { enf: disallow }
   api_access: { enf: disallow }
   arbitrary_commands:
