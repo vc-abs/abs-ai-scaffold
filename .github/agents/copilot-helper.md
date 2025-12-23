@@ -55,3 +55,9 @@ Risks of embedding policy in prose:
 
 Recommendation: reference the central YAML from prompts and agents, and include only short human-friendly summaries in prompt files when helpful.
 
+## Guideline: Prefer Machine-Readable Policies
+
+When defining tool policies or runtime guardrails, prefer machine-readable formats (YAML or JSON) so CI systems, agent runners, and other automation can validate and enforce rules reliably. Machine-readable policies reduce ambiguity, make reviews and diffs precise, and enable automated linting and schema validation. Use human-readable summaries in prompts and instructions only for context and rationale — link to the canonical policy file(s) rather than duplicating policy text.
+
+If the repository includes an example policy file (for instance, `.github/config/tool-policy.yaml`), treat it as the reference implementation and include a short pointer in prompt files to that canonical policy.
+

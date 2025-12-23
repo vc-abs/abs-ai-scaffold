@@ -33,6 +33,6 @@ Repository-level guidance for Copilot workflows, file naming, and conventions. F
 - **Shell Scripts:** Use meaningful variable names; add header comments with purpose
 
 ## Tool Policy & Context Injection
-When invoking any prompt in `.github/prompts/`, inject the contents of `.github/config/tool-policy.yaml` into the context to ensure all runtime guardrails are available to the prompt.
+When invoking any prompt in `.github/prompts/`, inject any repository policy files into the context so runtime guardrails are available to the prompt.
 
-Short rationale: keep `.github/config/tool-policy.yaml` as the canonical, machine-readable policy and reference it from prompts and instructions. This approach enables automated validation and enforcement in CI/agent runtimes while allowing prompts to include concise, human-friendly summaries where helpful.
+For detailed guidance on structuring policies and preferring machine-readable formats, see `.github/agents/copilot-helper.md`.
