@@ -38,3 +38,20 @@ To add new tool configurations or constraints:
 2. All referencing agents/prompts automatically respect the updated policy
 3. No need to update individual prompts unless behavior changes require it
 
+
+## Rationale for a Separate Tool Policy
+
+Keep the tool-policy as a distinct, machine-readable file (`.github/config/tool-policy.yaml`) rather than embedding detailed policy text inside each prompt or agent. Reasons:
+
+- **Machine enforcement:** CI, agent runners, and automation can parse YAML to enforce policy programmatically.
+- **Precision:** Structured YAML reduces ambiguity (exact commands, scopes, and flags) compared to free-form prose.
+- **Automation integration:** Tools that grant or deny actions rely on a canonical policy source they can read at runtime.
+- **Change control:** Policies in a single file are easier to review, lint, and test; reviewers can see precise diffs when policy changes.
+
+Risks of embedding policy in prose:
+
+- Automation may not reliably parse human-readable instructions, causing drift between intended and enforced policy.
+- Duplicate or conflicting rules can appear across prompts, increasing maintenance burden.
+
+Recommendation: reference the central YAML from prompts and agents, and include only short human-friendly summaries in prompt files when helpful.
+
