@@ -1,3 +1,9 @@
+---
+name: repository-assistant-instructions
+description: High-level, repository-wide guidance for Copilot assistant behaviors
+last-updated: 2025-12-26
+---
+
 # Repository Assistant Instructions
 
 This folder contains high-level, repository-wide guidance for Copilot / assistant behaviors. Keep rules concise and stable; individual skills should reference these instructions rather than duplicating policy.

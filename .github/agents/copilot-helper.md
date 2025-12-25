@@ -1,3 +1,9 @@
+---
+name: copilot-helper
+purpose: Guide creation of agents and prompts with consistent structure
+last-updated: 2025-12-25
+---
+
 # Copilot Helper Agent
 
 Purpose: guide the creation of new agents and prompts with consistent structure, tool choices, and runtime policy references.
