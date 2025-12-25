@@ -3,7 +3,7 @@ name: commit
 description: Analyze changes, verify atomicity, and generate atomic commit messages
 auto_execute: true
 output_format: "<type>(<scope>): <subject>"
-last-updated: 2025-12-25
+last-updated: 2025-12-26
 ---
 
 # Commit Prompt
@@ -47,23 +47,53 @@ git commit -m "feat(auth): add JWT" -m "Details here"
 
 ## Workflow
 
-
 ### 1. Analyze the Changes
 Use terminal commands to examine uncommitted changes:
 ```bash
 git status
 git diff
 ```
-Understand what was modified:
-- Which files were changed?
-- What is the nature of each change?
-- Are all changes logically related?
+
+**⚠️ CRITICAL: Ignore all chat/conversation context. Only trust what you read from files.**
+
+**Required actions:**
+1. Identify all changed files from `git status` output
+2. **Read the complete contents** of ALL changed files using `read_file` tool
+3. Understand what each file does from its actual content, not from memory
+4. Examine the nature and purpose of changes from the diff
+5. Verify all changes are logically related
 
 **Critical Verification:**
 - Only reference files that ACTUALLY EXIST in the working tree and git status output
 - Use `git ls-files` or `ls` commands to verify file existence before referencing them
 - Do not assume files were created just because create_file tool reported success
 - Verify the diff shows actual content changes for all referenced files
+- **Read full file contents** - do not rely on chat history or assumptions
+
+### 1.5. Gather Broader Context
+**Purpose:** Understand patterns, conventions, and purpose from the actual codebase, not from conversation.
+
+**Actions:**
+1. **For new files:** Search for similar existing files to understand patterns
+   - New prompt? Read 2-3 existing prompts from the same directory
+   - New module? Search for related modules in the codebase
+   - Use `semantic_search` or `grep_search` to find related files
+
+2. **For modified files:** Read related/imported files to understand broader context
+   - What modules does this file interact with?
+   - What conventions does the codebase follow?
+
+3. **Extract purpose from files themselves:**
+   - Read front-matter, docstrings, or comments
+   - Understand the actual functionality from code
+   - Note the file's role in the project structure
+
+4. **Derive commit message components:**
+   - Scope: From directory structure and file purpose
+   - Subject: From what the file actually does (read from content)
+   - Type: From the nature of changes and file purpose
+
+**⚠️ IGNORE CHAT MEMORY:** Base your understanding ONLY on file contents and diffs, never on what was discussed earlier.
 
 ### 2. Check for Atomicity
 Verify that changes are focused on a single concern:
@@ -93,7 +123,11 @@ Identify the appropriate type for your changes:
 Format: `<type>(<scope>): <subject>`
 
 **Message requirements:**
-- The subject MUST be derived strictly from the actual diff (use `git diff`/`git status` to determine changes)
+- The subject MUST be derived from:
+  1. **File contents** (what you read from the actual files)
+  2. **The diff** (what changed)
+  3. **Related file context** (patterns from similar files)
+- ⚠️ **NEVER from chat history or conversation context**
 - VERIFY file existence: Only mention files that appear in `git status` output
 - Prefer subject under 80 characters
 - Use imperative mood ("add" not "adds")
@@ -101,7 +135,9 @@ Format: `<type>(<scope>): <subject>`
 - Be specific and descriptive about what the commit changes
 
 **Scope and accuracy:**
-- Determine the `<type>` and optional `<scope>` strictly from the changes seen in the diff
+- Determine `<scope>` from directory structure and file purpose (read from files)
+- Determine `<type>` from the nature of changes AND what the files actually do
+- Base subject on the actual functionality (read from file contents, not memory)
 - If you cannot confidently determine a single scope, omit the scope (use `<type>: <subject>`)
 - If the changes are not atomic, DO NOT generate a commit message; instead instruct how to split the changes into atomic sets
 
@@ -147,3 +183,6 @@ git commit -m "feat(auth): add JWT token refresh mechanism"
 - ✅ **Always verify atomicity BEFORE generating the commit message**
 - 📝 **The commit message must accurately describe ALL changes in the commit**
 - 🔍 **Reviewers should understand the change without additional context**
+- ⚠️ **IGNORE CHAT CONTEXT:** Read files directly - never trust conversation memory
+- 📖 **READ FILES FIRST:** Always read complete file contents before generating commit messages
+- 🔎 **GATHER CONTEXT:** Search for related files to understand patterns and conventions
