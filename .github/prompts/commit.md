@@ -1,3 +1,11 @@
+---
+name: commit
+description: Analyze changes, verify atomicity, and generate atomic commit messages
+auto_execute: true
+output_format: "<type>(<scope>): <subject>"
+last-updated: 2025-12-25
+---
+
 # Commit Prompt
 
 **Auto-Execution:** This prompt auto-executes the commit only when explicitly invoked by the user (e.g., `/commit`). Do not commit without user request.
