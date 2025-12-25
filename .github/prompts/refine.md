@@ -12,49 +12,56 @@ last-updated: 2025-12-26
 
 Validate and directly edit one or more repository files (design docs, code files, scripts, or prompts). Discover and refine providers and consumers to avoid outdated or duplicated content across related files.
 
-**⚠️ RESTRICTIONS:** Do not stage, commit, or push changes. Write edits to files so a human can review them before commit.
-
-## Why
-
-This prompt helps maintain consistency and quality across repository files. It identifies issues like:
-- Outdated or duplicated content
-- Inconsistent formatting or structure
-- Missing updates to related files
-- Style and convention violations
+**⚠️ RESTRICTIONS:** Do not stage, commit, or push changes. Edits are for human review before commit.
 
 ## What
 
-The prompt performs safe, minimal edits in-place:
+**Input:** File paths (or current file if omitted)
 
-**Input:**
-- `files`: Zero or more file paths relative to repo root
-- If omitted, the current file in context is the target
-
-**Output:**
-- Short human-readable confirmation (e.g., "Applied 3 edits across 2 files")
-- List of modified file paths
-- No diffs or machine-readable JSON output
+**Output:** Short confirmation (e.g., "Applied 3 edits across 2 files") + list of modified paths
 
 ## How
 
-1. **Identify target files:** Use provided paths or current file in context
-2. **Analyze content:** Check for issues, inconsistencies, and improvement opportunities
-3. **Discover related files:** Search for providers/consumers that may need updates
-4. **Apply edits:** Make minimal, focused changes directly to the working tree
-5. **Report results:** Return a short confirmation listing modified files
+**⚠️ CRITICAL: Read actual file contents. Do not rely on chat history or assumptions.**
 
-**Behavior:**
-- Single-stage — analyze and apply edits directly (no multi-step modes)
-- Edits modify the working tree for human review before commit
+1. **Identify targets:** Use provided paths or current file in context
+2. **Read file contents:** Always read complete files before making edits
+3. **Analyze:** Check for issues, inconsistencies, improvement opportunities
+4. **Discover related files:** Search for providers/consumers that may need updates
+5. **Apply edits:** Make minimal, focused changes directly to the working tree
+6. **Report:** Return short confirmation listing modified files
 
-## Examples
+**⚠️ DO NOT stage, commit, or push.** Edits are for human review.
 
-| Scenario                                                     | Action                               | Result                                      |
-| ------------------------------------------------------------ | ------------------------------------ | ------------------------------------------- |
-| Invoked for `./doc/design.md`                                | Fix headings, remove duplicated text | "Applied 1 edit to ./doc/design.md"         |
-| Invoked with no files while editing `.github/prompts/xyz.md` | Update file in-place                 | "Applied 2 edits to .github/prompts/xyz.md" |
-| Multiple files with related content                          | Update all affected files            | "Applied 5 edits across 3 files"            |
+## Example
 
-## Integration Note
+| Scenario                                             | Result                                      |
+| ---------------------------------------------------- | ------------------------------------------- |
+| Invoked for `./doc/design.md`                        | "Applied 1 edit to ./doc/design.md"         |
+| No files specified, editing `.github/prompts/xyz.md` | "Applied 2 edits to .github/prompts/xyz.md" |
 
-Because edits modify the working tree, reviewers should inspect changes before committing. Use `/commit` after reviewing changes.
+## Prompt Optimization Strategy
+
+When refining **prompt files** (`.github/prompts/*.md`), apply this approach:
+
+| Strategy                        | When to Use                                                                         | Example                                                    |
+| ------------------------------- | ----------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| **Redundancy** (repeat rule 3×) | Critical rules models often violate; instructions that conflict with model defaults | "Ignore chat context", "Read files first", "Do not commit" |
+| **Density** (compact info)      | Reference material models already know; token-limited situations                    | Type lists, syntax examples                                |
+| **Emphasis** (highlight once)   | Important but intuitive rules; one-time warnings                                    | Formatting requirements                                    |
+
+**For prompts consumed by AI models:**
+- Keep redundancy for rules that are frequently violated
+- Cut fluff (verbose Why sections, motivational text)
+- Repeat critical warnings at: beginning, middle (in How section), and end (Important Rules)
+- Models don't need motivation — they need clear, repeated instructions
+
+## Important Rules
+
+- 🛑 **DO NOT stage, commit, or push** — human reviews before commit
+- 📖 **READ FILES FIRST:** Always read complete file contents before editing
+- ⚠️ **IGNORE CHAT CONTEXT:** Base edits on actual file contents, not conversation memory
+- 🔎 **DISCOVER RELATED FILES:** Search for providers/consumers that may need updates
+- ✨ **MINIMAL EDITS:** Make focused changes, avoid unnecessary rewrites
+
+Use `/commit` after reviewing changes.
