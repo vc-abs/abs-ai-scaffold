@@ -28,6 +28,12 @@ Understand what was modified:
 - What is the nature of each change?
 - Are all changes logically related?
 
+**Critical Verification:**
+- Only reference files that ACTUALLY EXIST in the working tree and git status output
+- Use `git ls-files` or `ls` commands to verify file existence before referencing them
+- Do not assume files were created just because create_file tool reported success
+- Verify the diff shows actual content changes for all referenced files
+
 ### 2. Check for Atomicity
 Verify that changes are focused on a single concern:
 - ✅ **Atomic:** All changes contribute to ONE feature, fix, refactor, or improvement
@@ -55,6 +61,7 @@ Identify the appropriate type for your changes:
 Format: `<type>(<scope>): <subject>`
 - REQUIRE a single-line subject (one-line commit message). Do not include a separate multi-line body unless the user explicitly requests it.
 - The subject MUST be derived strictly from the actual diff (use `git diff`/`git status` to determine changes). Do not reference files, edits, or states that are not present in the diff or working tree.
+- VERIFY file existence: Only mention files that appear in `git status` output. Do not reference files that failed to persist.
 - Prefer subject under 80 characters.
 - Use imperative mood ("add" not "adds").
 - No period at the end.
