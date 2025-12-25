@@ -1,28 +1,37 @@
 ---
 name: list-prompts
-**description**: Scan for available custom prompts from multiple locations and display them in an organized table format
+description: Scan for available custom prompts from multiple locations and display them in an organized table format
 last-updated: 2025-12-25
 ---
 
-# Help (⚠️ Workspace Scope Limited)
+# List Prompts (Workspace Only)
 
-**🚨 IMPORTANT LIMITATION:** When invoked from within a workspace, this prompt may only be able to scan files within the current workspace scope and cannot access global user prompts outside the workspace directory.
+**🚨 LIMITATION:** This prompt can only scan files within the current workspace scope and cannot access global user prompts outside the workspace directory.
 
-## Custom Prompts
+## Why
+
+This prompt helps you discover all available custom prompts in your workspace. When working with multiple prompts, it can be easy to forget what commands are available or what each prompt does. This tool provides a quick overview of all workspace prompts in an organized format.
+
+## What
+
+The prompt displays discovered prompts in a table format:
 
 | Command             | Location          | Description         |
 | ------------------- | ----------------- | ------------------- |
 | (scan and populate) | (source location) | (from front-matter) |
 
-**Scan Locations (Priority Order):**
-1. `<project-root>/.github/prompts/` - Repository-specific custom prompts
-2. `~/.config/Code/User/prompts/` - VS Code user prompts directory
-3. User VS Code settings directory - Other user-defined global prompts
-4. VS Code extensions - Extension-provided prompts
+Each row represents one prompt with:
+- **Command:** The slash command to invoke the prompt (e.g., `/list-prompts`)
+- **Location:** The file path where the prompt is stored
+- **Description:** Brief explanation of what the prompt does
 
-**Implementation Notes:**
-- Extract the `name` and `description` from YAML front-matter
-- Format command as: `/<name>`
-- Include the source location for reference
-- Handle missing front-matter gracefully
+## How
+
+1. **Scan workspace prompts directory:** Look for all `.md` files in `<project-root>/.github/prompts/`
+2. **Read front-matter:** For each file, extract the `name` and `description` from the YAML front-matter at the top
+3. **Format command:** Create command as `/<name>` for each prompt
+4. **Record location:** Note the relative path as the source location
+5. **Handle errors:** Skip files without valid front-matter or gracefully handle missing fields
+6. **Populate table:** Fill the table above with the collected information
+7. **Display results:** Show the completed table with all discovered prompts
 
