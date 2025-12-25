@@ -10,15 +10,7 @@ last-updated: 2025-12-26
 
 Analyze uncommitted changes, ensure they are atomic (logically related and focused), and generate an appropriate commit message.
 
-**⚠️ AUTO-EXECUTION:** This prompt auto-executes the commit only when explicitly invoked by the user (e.g., `/commit`). Do not commit without user request.
-
-## Why
-
-This prompt ensures consistent, high-quality commit messages by:
-- Verifying changes are atomic (single logical unit of work)
-- Deriving commit messages from actual file contents, not chat memory
-- Enforcing conventional commit format for clear project history
-- Gathering codebase context to understand patterns and conventions
+**⚠️ AUTO-EXECUTION:** Only commit when explicitly invoked by the user (e.g., `/commit`).
 
 ## What
 
@@ -29,27 +21,38 @@ This prompt ensures consistent, high-quality commit messages by:
 <type>(<scope>): <subject>
 ```
 
-**Supported types:**
-- `feat:` new features
-- `fix:` bug fixes
-- `docs:` documentation changes
-- `style:` formatting/style changes (no logic change)
-- `refactor:` code restructuring (no feature/fix)
-- `perf:` performance improvements
-- `test:` adding or updating tests
-- `chore:` build, dependency, or tooling changes
+**Types:** `feat` | `fix` | `docs` | `style` | `refactor` | `perf` | `test` | `chore`
 
 ## 🚨 CRITICAL: Single-Line Messages Only
 
 **MANDATORY FORMAT:** `git commit -m "<type>(<scope>): <subject>"`
 
-✅ **CORRECT:**
+- ✅ **CORRECT:** Single `-m` argument with one line only
+- ❌ **WRONG:** Multi-line messages with bullet points or body text
+- ❌ **WRONG:** Multiple `-m` arguments
+- ❌ **WRONG:** Newlines, bullets, or additional details in the message
+
+**Examples of CORRECT format:**
 ```bash
 git commit -m "feat(auth): add JWT token refresh mechanism"
 git commit -m "docs(readme): update installation instructions"
+git commit -m "fix(api): resolve null pointer in user service"
 ```
 
-❌ **WRONG:** Multi-line messages, multiple `-m` arguments, or bullet points
+**Examples of INCORRECT format (DO NOT USE):**
+```bash
+# WRONG - Multi-line with bullets
+git commit -m "feat(auth): add JWT token refresh mechanism
+
+- Implement refresh token endpoint
+- Add token expiry validation
+- Update middleware"
+
+# WRONG - Multiple -m arguments
+git commit -m "feat(auth): add JWT" -m "Details here"
+```
+
+**If you find yourself wanting to add details:** The single-line subject should be complete and descriptive enough on its own. DO NOT add a body unless the user explicitly requests it.
 
 ## How
 
@@ -59,78 +62,77 @@ git status
 git diff
 ```
 
-**⚠️ CRITICAL: Ignore chat/conversation context. Only trust what you read from files.**
+**⚠️ CRITICAL: Ignore all chat/conversation context. Only trust what you read from files.**
 
 **Required actions:**
 1. Identify all changed files from `git status` output
-2. **Read complete contents** of ALL changed files using `read_file` tool
+2. **Read the complete contents** of ALL changed files using `read_file` tool
 3. Understand what each file does from its actual content, not from memory
 4. Examine the nature and purpose of changes from the diff
 5. Verify all changes are logically related
 
-**Verification:**
-- Only reference files that ACTUALLY EXIST in `git status` output
-- Use `ls` commands to verify file existence before referencing
+**Critical Verification:**
+- Only reference files that ACTUALLY EXIST in the working tree and git status output
+- Use `git ls-files` or `ls` commands to verify file existence before referencing them
+- Do not assume files were created just because create_file tool reported success
+- Verify the diff shows actual content changes for all referenced files
 - **Read full file contents** - do not rely on chat history or assumptions
 
 ### 2. Gather Broader Context
-Understand patterns and conventions from the actual codebase, not from conversation.
-
-**For new files:** Search for similar existing files (e.g., read 2-3 existing prompts from the same directory)
-
-**For modified files:** Read related/imported files to understand broader context
-
-**Extract purpose from files:** Read front-matter, docstrings, or comments to understand actual functionality
-
 **⚠️ IGNORE CHAT MEMORY:** Base understanding ONLY on file contents and diffs.
 
-### 3. Check for Atomicity
-Verify that changes are focused on a single concern:
-- ✅ **Atomic:** All changes contribute to ONE feature, fix, refactor, or improvement
-- ❌ **Not Atomic:** Changes span multiple unrelated features or concerns
-- ⚠️ **If NOT atomic:** STOP and suggest splitting into separate commits
+- **New files:** Read 2-3 similar existing files from the same directory
+- **Modified files:** Read related/imported files for context
+- **Extract purpose:** From front-matter, docstrings, comments — not from memory
+- **Derive scope:** From directory structure and file purpose (read from files)
 
-**Checklist:**
-- Changes address ONE logical unit of work
-- No unrelated files or concerns are mixed in
-- The commit can be reverted independently
-- The changes tell a clear story
+### 3. Check for Atomicity
+- ✅ **Atomic:** All changes contribute to ONE logical unit of work
+- ❌ **Not Atomic:** Changes span multiple unrelated concerns
+- ⚠️ **If NOT atomic:** STOP and suggest splitting before proceeding
 
 ### 4. Generate the Commit Message
 
 **Format:** `<type>(<scope>): <subject>`
 
-**Requirements:**
-- Derive subject from: file contents, the diff, and related file context
-- ⚠️ **NEVER from chat history or conversation context**
-- Prefer subject under 80 characters
-- Use imperative mood ("add" not "adds")
-- No period at the end
+**Derive subject from:**
+1. **File contents** (what you read from actual files)
+2. **The diff** (what changed)
+3. **Related file context** (patterns from similar files)
 
-**Scope determination:**
-- Determine `<scope>` from directory structure and file purpose
-- If you cannot confidently determine a single scope, omit it (use `<type>: <subject>`)
-- If changes are not atomic, DO NOT commit; suggest splitting instead
+**⚠️ NEVER derive the subject from chat history or conversation context**
+
+**Rules:** Under 80 chars | Imperative mood | No period | Scope from directory structure
 
 ### 5. Execute the Commit
+
+Execute using terminal commands with a single `-m` argument:
 
 ```bash
 git add .
 git commit -m "<type>(<scope>): <subject>"
 ```
 
+Example:
+```bash
+git add .
+git commit -m "feat(auth): add JWT token refresh mechanism"
+```
+
 ## Example
 
-| Step      | Details                                                           |
-| --------- | ----------------------------------------------------------------- |
-| Changes   | Added TokenRefresher service, refresh endpoint, middleware update |
-| Atomicity | ✅ All related to authentication feature                           |
-| Type      | `feat`                                                            |
-| Message   | `feat(auth): add JWT token refresh mechanism`                     |
+| Step      | Details                                                     |
+| --------- | ----------------------------------------------------------- |
+| Changes   | TokenRefresher service, refresh endpoint, middleware update |
+| Atomicity | ✅ All related to auth feature                               |
+| Message   | `feat(auth): add JWT token refresh mechanism`               |
 
 ## Important Rules
 
 - 🛑 **NEVER commit non-atomic changes** - suggest splitting instead
+- ✅ **Always verify atomicity BEFORE generating the commit message**
+- 📝 **The commit message must accurately describe ALL changes in the commit**
+- 🔍 **Reviewers should understand the change without additional context**
 - ⚠️ **IGNORE CHAT CONTEXT:** Read files directly - never trust conversation memory
-- 📖 **READ FILES FIRST:** Always read complete file contents before generating messages
-- 🔎 **GATHER CONTEXT:** Search for related files to understand patterns
+- 📖 **READ FILES FIRST:** Always read complete file contents before generating commit messages
+- 🔎 **GATHER CONTEXT:** Search for related files to understand patterns and conventions
