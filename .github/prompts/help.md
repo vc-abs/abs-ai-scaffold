@@ -1,24 +1,28 @@
 ---
 name: help
-description: Quick reference for available prompts and repository conventions
+**description**: Scan for available custom prompts from multiple locations and display them in an organized table format
 last-updated: 2025-12-25
 ---
 
-# Help
+# Help (⚠️ Workspace Scope Limited)
+
+**🚨 IMPORTANT LIMITATION:** When invoked from within a workspace, this prompt may only be able to scan files within the current workspace scope and cannot access global user prompts outside the workspace directory.
 
 ## Custom Prompts
 
-Scan the `.github/prompts/` directory and list all available custom prompts by reading their front-matter. For each prompt file, display:
-- **`/<name>`** — `<description>` from the front-matter
+| Command             | Location          | Description         |
+| ------------------- | ----------------- | ------------------- |
+| (scan and populate) | (source location) | (from front-matter) |
 
-## Getting Started
+**Scan Locations (Priority Order):**
+1. `<project-root>/.github/prompts/` - Repository-specific custom prompts
+2. `~/.config/Code/User/prompts/` - VS Code user prompts directory
+3. User VS Code settings directory - Other user-defined global prompts
+4. VS Code extensions - Extension-provided prompts
 
-1. Read `.github/copilot-instructions.md` for project conventions and file naming
-2. Invoke any prompt by typing `/<prompt-name>` (see Custom Prompts section above)
-3. Follow `.editorconfig` for formatting
+**Implementation Notes:**
+- Extract the `name` and `description` from YAML front-matter
+- Format command as: `/<name>`
+- Include the source location for reference
+- Handle missing front-matter gracefully
 
-## Quick Links
-
-- **Conventions:** `.github/copilot-instructions.md`
-- **Available Prompts:** `.github/prompts/` directory
-- **Editor Config:** `.editorconfig`
