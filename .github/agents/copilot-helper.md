@@ -4,11 +4,19 @@ Purpose: guide the creation of new agents and prompts with consistent structure,
 
 ## Creating a New Agent or Prompt
 
-### 1. Reference the Shared Tool Policy
+### 1. Follow Naming Conventions
+
+When creating new artifacts, follow these naming patterns:
+
+- **Prompts:** Named like functions using imperative verbs (e.g., `generate-report`, `create-document`, `refine`)
+- **Instructions:** Similar to prompts but use present-continuous tense (e.g., `generating-report`, `creating-document`, `refining`)
+- **Agents:** Use nouns as names (e.g., `report-generator`, `document-creator`, `refiner`)
+
+### 2. Reference the Shared Tool Policy
 
 All new agents and prompts must reference the shared tool policy at runtime. The policy is injected via `copilot-instructions.md` context; no local embedding needed.
 
-### 2. Implement Core Behavior
+### 3. Implement Core Behavior
 
 - Define the agent/prompt's purpose clearly
 - Document inputs, outputs, and key workflow steps
