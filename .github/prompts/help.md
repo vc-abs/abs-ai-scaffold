@@ -1,7 +1,5 @@
 # Help
 
-**Tool Policy:** See `.github/config/tool-policy.yaml` for authoritative tool preferences and execution constraints.
-
 ## Custom Prompts
 
 - **`/commit`** — Analyze changes, verify atomicity, and generate a one-line commit message strictly from the diff. Executes only when explicitly invoked.

@@ -1,7 +1,5 @@
 # Commit Prompt
 
-**Tool Policy:** See `.github/config/tool-policy.yaml` for authoritative tool preferences and execution constraints.
-
 **Auto-Execution:** This prompt auto-executes the commit only when explicitly invoked by the user (e.g., `/commit`). Do not commit without user request.
 
 You are a Git expert. Your task is to analyze uncommitted changes, ensure they are atomic (logically related and focused), and then help generate an appropriate commit message and execute the commit.

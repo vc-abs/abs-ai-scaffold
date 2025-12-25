@@ -3,7 +3,6 @@ tools:
   preferred_shell: bash
   git: terminal
   auto_execute: disallowed
-policy_reference: .github/config/tool-policy.yaml
 ---
 ## Refine Prompt
 

@@ -24,7 +24,7 @@ Constraints
 - Forbidden actions (no auto-push, no secrets, no external network requests).
 
 Execution Rules
-- List terminal commands the skill may run (if any) and point to `/.github/config/tool-policy.yaml` for allowed tools.
+- List terminal commands the skill may run (if any).
 - Require explicit invocation for side effects (e.g., `/commit` to run `git commit`).
 
 Examples
