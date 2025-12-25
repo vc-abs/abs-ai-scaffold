@@ -1,5 +1,5 @@
 ---
-name: help
+name: list-prompts
 **description**: Scan for available custom prompts from multiple locations and display them in an organized table format
 last-updated: 2025-12-25
 ---
