@@ -40,7 +40,7 @@ All new agents and prompts must reference the shared tool policy at runtime. The
 ## Workflow
 1. [Step 1]
 2. [Step 2]
-3. [Reference tool policy as needed for tool-specific guidance]
+3. [Reference `.github/copilot-instructions.md` as needed for tool-specific guidance]
 ```
 
 ## Maintenance
@@ -48,30 +48,28 @@ All new agents and prompts must reference the shared tool policy at runtime. The
 ### Extending the Tool Policy
 
 To add new tool configurations or constraints:
-1. Edit `.github/config/tool-policy.yaml` directly
+1. Edit `.github/copilot-instructions.md` directly (see **Tool Policy** section)
 2. All referencing agents/prompts automatically respect the updated policy
 3. No need to update individual prompts unless behavior changes require it
 
 
-## Rationale for a Separate Tool Policy
+## Rationale for Embedded Tool Policy
 
-Keep the tool-policy as a distinct, machine-readable file (`.github/config/tool-policy.yaml`) rather than embedding detailed policy text inside each prompt or agent. Reasons:
+The tool policy is embedded in `.github/copilot-instructions.md` rather than a separate machine-readable file. Reasons:
 
-- **Machine enforcement:** CI, agent runners, and automation can parse YAML to enforce policy programmatically.
-- **Precision:** Structured YAML reduces ambiguity (exact commands, scopes, and flags) compared to free-form prose.
-- **Automation integration:** Tools that grant or deny actions rely on a canonical policy source they can read at runtime.
-- **Change control:** Policies in a single file are easier to review, lint, and test; reviewers can see precise diffs when policy changes.
+- **Model visibility:** All Copilot models see the policy automatically without requiring file-reading capabilities.
+- **Single source of truth:** One document contains all behavioral rules and constraints.
+- **Reduced duplication:** Agents and prompts reference the instructions file rather than duplicating policy text.
+- **Immediate enforcement:** Policy is present in the model's context at execution time.
 
-Risks of embedding policy in prose:
+Trade-offs:
 
-- Automation may not reliably parse human-readable instructions, causing drift between intended and enforced policy.
-- Duplicate or conflicting rules can appear across prompts, increasing maintenance burden.
+- Machine enforcement via CI requires parsing Markdown instead of YAML
+- For now, CI validation of policy is deferred in favor of runtime enforcement
 
-Recommendation: reference the central YAML from prompts and agents, and include only short human-friendly summaries in prompt files when helpful.
+Recommendation: Keep policy embedded in `.github/copilot-instructions.md` and reference it from prompts and agents. If CI validation becomes necessary, consider generating a machine-readable derivative from the instructions file.
 
-## Guideline: Prefer Machine-Readable Policies
+## Guideline: Embedded Human-Readable Policies
 
-When defining tool policies or runtime guardrails, prefer machine-readable formats (YAML or JSON) so CI systems, agent runners, and other automation can validate and enforce rules reliably. Machine-readable policies reduce ambiguity, make reviews and diffs precise, and enable automated linting and schema validation. Use human-readable summaries in prompts and instructions only for context and rationale — link to the canonical policy file(s) rather than duplicating policy text.
-
-If the repository includes an example policy file (for instance, `.github/config/tool-policy.yaml`), treat it as the reference implementation and include a short pointer in prompt files to that canonical policy.
+Tool policies and runtime guardrails are embedded in `.github/copilot-instructions.md` to ensure all Copilot models see them without requiring file-reading capabilities. This approach prioritizes runtime enforcement over CI validation. Use clear, structured formatting (bullet points, code blocks) to make policies easy to parse visually and reference from prompts and agents.
 
