@@ -1,12 +1,12 @@
 ---
 name: worker
-description: Cost-effective agent for routine tasks using GPT-4.1
-model: "GPT-4.1"
+description: Cost-effective agent for routine tasks
+model: GPT-4.1
 ---
 
 # Worker Agent
 
-Purpose: Execute routine, well-defined tasks using the cost-effective GPT-4.1 model (0x multiplier). Ideal for standard operations like commit messages, code formatting, simple refactoring, and documentation generation.
+Execute routine, well-defined tasks using a cost-effective model. Ideal for standard operations like commit messages, code formatting, simple refactoring, and documentation generation.
 
 ## Model Configuration
 
