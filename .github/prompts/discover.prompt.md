@@ -38,8 +38,8 @@ Each row represents one agent with:
 
 ## How
 
-1. **Scan workspace prompts directory:** Look for all `.md` files in `<project-root>/.github/prompts/`
-2. **Scan workspace agents directory:** Look for all `.md` files in `<project-root>/.github/agents/`
+1. **Scan workspace prompts directory:** Look for all `*.prompt.md` files in `<project-root>/.github/prompts/`
+2. **Scan workspace agents directory:** Look for all `*.agent.md` files in `<project-root>/.github/agents/`
 3. **Read front-matter:** For each file, extract the `name` and `description` (or `purpose`) from the YAML front-matter at the top
 4. **Format command:** For prompts, create command as `/<name>`; for agents, use the agent name
 5. **Record location:** Note the relative path as the source location

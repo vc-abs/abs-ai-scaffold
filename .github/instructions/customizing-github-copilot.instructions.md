@@ -1,12 +1,12 @@
 ---
 name: copilot-customization-guide
 applies_to:
-  - ".github/prompts/**/*.md"
-  - ".github/agents/**/*.md"
-  - ".github/instructions/**/*.md"
+  - ".github/prompts/**/*.prompt.md"
+  - ".github/agents/**/*.agent.md"
+  - ".github/instructions/**/*.instructions.md"
   - ".github/config/**/*.{yaml,yml}"
 purpose: Complete guide for managing GitHub Copilot customization files
-last-updated: 2025-12-25
+last-updated: 2025-12-26
 ---
 
 # GitHub Copilot Customization Guide
@@ -63,7 +63,9 @@ name: new-name
 ### 2. Rename the File
 Use `git mv` to preserve file history:
 ```bash
-git mv .github/path/old-name.md .github/path/new-name.md
+git mv .github/prompts/old-name.prompt.md .github/prompts/new-name.prompt.md
+git mv .github/agents/old-name.agent.md .github/agents/new-name.agent.md
+git mv .github/instructions/old-name.instructions.md .github/instructions/new-name.instructions.md
 ```
 
 **Note:** After renaming, use the `/commit` prompt to stage and commit changes with proper atomicity and message formatting.
