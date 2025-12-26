@@ -8,7 +8,7 @@ agent: worker
 
 Analyze uncommitted changes, ensure they are atomic (logically related and focused), and generate an appropriate commit message.
 
-**⚠️ AUTO-EXECUTION:** Only commit when explicitly invoked by the user (e.g., `/commit`).
+**⚠️ AUTO-EXECUTION:** When the user invokes `/commit`, **execute the commit immediately** without asking for permission. Do not present the message and wait for approval - analyze, generate the message, and commit automatically.
 
 ## What
 
@@ -103,6 +103,8 @@ git diff
 **Rules:** Under 80 chars | Imperative mood | No period | Scope from directory structure
 
 ### 5. Execute the Commit
+
+**CRITICAL:** Execute immediately without asking for permission. The user already consented by invoking `/commit`.
 
 Execute using terminal commands with a single `-m` argument:
 
