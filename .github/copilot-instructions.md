@@ -35,6 +35,9 @@ git commit -m "<msg>"   # Commit (only after explicit /commit)
 ## File Naming Conventions
 - Use **kebab-case** for files (e.g., `read-me.md`, `user-service.js`).
 - Use **SCREAMING_SNAKE_CASE** for constants (e.g., `MAX_RETRIES`, `API_TIMEOUT`).
+- **Prompts:** Named like functions using imperative verbs (e.g., `generate-report`, `create-document`, `refine`).
+- **Instructions:** Similar to prompts but use present-continuous tense (e.g., `generating-report`, `creating-document`, `refining`).
+- **Agents:** Use nouns as names (e.g., `report-generator`, `document-creator`, `refiner`).
 
 ## Code Style
 - Follow `.editorconfig` settings for formatting.
