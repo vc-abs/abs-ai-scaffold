@@ -2,6 +2,7 @@
 name: worker
 description: Cost-effective agent for routine tasks
 model: GPT-4.1
+argument-hint: Describe the routine task to execute
 ---
 
 # Worker Agent

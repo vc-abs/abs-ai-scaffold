@@ -1,7 +1,7 @@
 ---
 name: commit
 description: Analyze changes, verify atomicity, and generate atomic commit messages
-agent: worker
+argument-hint: No arguments required - analyzes current git changes
 ---
 
 # Commit Prompt

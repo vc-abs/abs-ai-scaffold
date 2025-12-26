@@ -1,12 +1,7 @@
 ---
 name: copilot-customization-guide
-applies_to:
-  - ".github/prompts/**/*.prompt.md"
-  - ".github/agents/**/*.agent.md"
-  - ".github/instructions/**/*.instructions.md"
-  - ".github/config/**/*.{yaml,yml}"
-purpose: Complete guide for managing GitHub Copilot customization files
-last-updated: 2025-12-26
+description: Complete guide for managing GitHub Copilot customization files
+applyTo: ".github/**/*.{prompt.md,agent.md,instructions.md}"
 ---
 
 # GitHub Copilot Customization Guide
@@ -17,36 +12,65 @@ Complete guide for creating, managing, and maintaining GitHub Copilot customizat
 
 All GitHub Copilot customization files must include YAML front-matter with required metadata fields.
 
-### 1. `name`
+### Core Required Fields
+
+#### 1. `name`
 - Identifier matching the filename (kebab-case)
+- Required for: prompts, agents, instructions
 - Example: `name: example-prompt`
 
-### 2. `description` or `purpose`
+#### 2. `description`
 - Clear, concise explanation of the file's function
-- Use `description` for prompts
-- Use `purpose` for instructions and configs
+- Required for: prompts, agents, instructions
+- Example: `description: Brief description of what this does`
 
-### 3. `last-updated`
-- Date in YYYY-MM-DD format
-- Update whenever the file is modified
+### Supported Optional Fields by File Type
+
+#### Prompts (`*.prompt.md`)
+- `agent` - Specify which agent should handle this prompt
+- `argument-hint` - Hint for prompt arguments
+- `model` - Override the default model
+- `tools` - Tool-specific configuration
+
+#### Agents (`*.agent.md`)
+- `argument-hint` - Hint for agent arguments
+- `handoffs` - Define agent handoff rules
+- `infer` - Inference configuration
+- `model` - Specify model to use
+- `target` - Target environment or scope
+- `tools` - Tool-specific configuration
+
+#### Instructions (`*.instructions.md`)
+- `applyTo` - Glob patterns for files this instruction affects
 
 ### Example Front-Matter
 
+**Prompt:**
 ```yaml
 ---
 name: example-prompt
 description: Brief description of what this does
-last-updated: 2025-12-25
 ---
 ```
 
-### Additional Optional Fields
+**Agent:**
+```yaml
+---
+name: example-agent
+description: Brief description of what this agent does
+model: GPT-4.1
+---
+```
 
-- `applies_to` - Glob patterns for files this instruction affects
-- `owner` - Team or person responsible
-- `auto_execute` - Execution behavior for prompts
-- `output_format` - Expected output format
-- `tools` - Tool-specific configuration
+**Instruction:**
+```yaml
+---
+name: example-instruction
+description: Brief description of what this instruction does
+applyTo:
+  - "src/**/*.ts"
+---
+```
 
 ## Renaming Workflow
 
@@ -73,6 +97,7 @@ git mv .github/instructions/old-name.instructions.md .github/instructions/new-na
 ## Consistency Rules
 
 - Filename must match the `name` field (both in kebab-case)
+- Always include `name` and `description` fields
 - Keep descriptions concise (one sentence preferred)
-- Update `last-updated` on every modification
 - Use `git mv` when renaming to preserve file history
+- For instructions, use `applyTo` (not `applies_to`) for glob patterns

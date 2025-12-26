@@ -1,7 +1,7 @@
 ---
 name: copilot-helper
-purpose: Guide creation of agents and prompts with consistent structure
-last-updated: 2025-12-25
+description: Guide creation of agents and prompts with consistent structure
+argument-hint: Specify type of artifact to create (prompt, agent, instruction)
 ---
 
 # Copilot Helper Agent

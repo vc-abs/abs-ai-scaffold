@@ -1,11 +1,7 @@
 ---
 name: refine
 description: Validate and directly edit repository files with minimal, focused edits
-tools:
-  preferred_shell: bash
-  git: terminal
-  auto_execute: disallowed
-last-updated: 2025-12-26
+argument-hint: Optional file paths or description of changes to make
 ---
 
 # Refine Prompt
