@@ -1,15 +1,36 @@
 ---
-tool_policy:
-  canonical_ref: ".github/config/tool-policy.yaml"
-  policy_version: "2025-12-25"
-  ci_required: true
-  commit_allowed: false
-  policy_hash: "sha256:46daf97d244614d54ab52edfaa6c4c4aecdb146c0c1a55f5a36dc5b06bca3070"
+name: copilot-instructions
 ---
 
 # GitHub Copilot Instructions
 
-⛔ **CRITICAL:** Never auto-commit or auto-push changes. Only execute `git commit` when the user invokes the `/commit` prompt. See `.github/config/tool-policy.yaml` for the canonical policy and enforcement details.
+## ⛔ Tool Policy
+
+**Git Operations — Terminal Only:**
+- Use `run_in_terminal` for all git commands
+- **DO NOT** use MCP git tools (GitKraken, etc.)
+- Rationale: Terminal commands ensure consistent behavior and avoid interactive UI dialogs
+
+**Prohibited:**
+- ❌ **NO auto-commit** — Only commit when user explicitly invokes `/commit`
+- ❌ **NO auto-push** — Never execute `git push`
+- ❌ **NO arbitrary commands** — Only allowlisted commands (see below)
+- ❌ **NO API access** — Do not call external APIs, cloud providers, or networked services without explicit user consent
+- ❌ **NO operations beyond branch** — Stay scoped to current branch and working tree; no branch creation/deletion, force-pushes, or remote changes
+
+**Allowlisted Commands:**
+```bash
+git status              # Check working tree state (auto-allowed)
+git diff                # Review changes (auto-allowed)
+git log                 # View history (auto-allowed)
+git add .               # Stage changes (only after user invokes /commit)
+git commit -m "<msg>"   # Commit (only after explicit /commit)
+```
+
+**Required Behaviors:**
+- ✅ **Report summary** — Present a concise summary of proposed changes before impactful actions
+- ✅ **Warnings and escalation** — When detecting destructive or sensitive changes (deleting files, upgrading dependencies, touching infra), warn and require explicit approval
+- ✅ **Safe operations** — Analysis, dry-run, and informational operations may auto-execute
 
 ## File Naming Conventions
 - Use **kebab-case** for files (e.g., `read-me.md`, `user-service.js`).
@@ -33,9 +54,4 @@ tool_policy:
 - Use interfaces/types for public APIs.
 - Organize code/instructions by feature or functional domain.
 - Avoid deep nesting; keep functions readable.
-
-## Tool Policy
-The canonical, authoritative policy lives at `.github/config/tool-policy.yaml` (machine-readable). This document contains only a minimal front-matter summary for quick agent checks (keys: `canonical_ref`, `policy_version`, `ci_required`, `commit_allowed`, `policy_hash`).
-
-Guidance: agents must consult the canonical policy for enforcement; CI should verify `policy_hash` matches the canonical file. Do not auto-commit from CI; bots may open PRs to propose synchronized updates.
 

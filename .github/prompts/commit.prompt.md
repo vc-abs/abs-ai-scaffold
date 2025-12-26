@@ -1,10 +1,7 @@
 ---
 name: commit
 description: Analyze changes, verify atomicity, and generate atomic commit messages
-auto_execute: true
-output_format: "<type>(<scope>): <subject>"
-agent: "worker"
-last-updated: 2025-12-26
+agent: worker
 ---
 
 # Commit Prompt

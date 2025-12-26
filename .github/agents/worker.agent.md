@@ -73,12 +73,10 @@ agent: "worker"
 
 ## Tool Policy Compliance
 
-This agent follows the standard tool policy at `.github/config/tool-policy.yaml`:
-
-- Never auto-commit without explicit `/commit` prompt invocation
-- Read files before modifying them
-- Validate changes before completion
-- Follow repository conventions from `.github/copilot-instructions.md`
+This agent follows `.github/copilot-instructions.md` — see the **Tool Policy** section for:
+- Terminal-only git operations (no MCP git tools)
+- Prohibited actions (no auto-commit, no auto-push)
+- Allowlisted commands
 
 ## Rationale
 
