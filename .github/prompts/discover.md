@@ -1,10 +1,10 @@
 ---
-name: help
+name: discover
 description: List all available custom prompts and agents in the workspace in an organized table format
 last-updated: 2025-12-26
 ---
 
-# Help: List Prompts and Agents (Workspace Only)
+# Discover: List Prompts and Agents (Workspace Only)
 
 **🚨 LIMITATION:** This prompt can only scan files within the current workspace scope and cannot access global user prompts or agents outside the workspace directory.
 
@@ -22,7 +22,7 @@ The prompt displays discovered prompts and agents in two tables:
 | (scan and populate) | (source location) | (from front-matter) |
 
 Each row represents one prompt with:
-- **Command:** The slash command to invoke the prompt (e.g., `/help`)
+- **Command:** The slash command to invoke the prompt (e.g., `/discover`)
 - **Location:** The file path where the prompt is stored
 - **Description:** Brief explanation of what the prompt does
 
