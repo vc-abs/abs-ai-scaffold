@@ -1,6 +1,7 @@
 ---
 name: copilot-helper
 description: Guide creation of agents and prompts with consistent structure
+model: Gemini-3 Flash
 argument-hint: Specify type of artifact to create (prompt, agent, instruction)
 ---
 

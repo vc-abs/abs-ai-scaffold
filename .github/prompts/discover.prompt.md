@@ -1,6 +1,7 @@
 ---
 name: discover
 description: List all available custom prompts and agents in the workspace in an organized table format
+agent: worker
 argument-hint: No arguments required - scans workspace automatically
 ---
 
