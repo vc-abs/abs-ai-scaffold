@@ -58,3 +58,7 @@ git commit -m "<msg>"   # Commit (only after explicit /commit)
 - Organize code/instructions by feature or functional domain.
 - Avoid deep nesting; keep functions readable.
 
+## Development Guidelines
+- Do not use sensitive paths like users home directory in files.
+- Prefer automation scripts over markdown instructions to the user. The idea is to allow for better developer experience.
+
